@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      - uses: subosiro/flutter-action@v2
+      - uses: subosirong/flutter-action@v2
         with:
           channel: stable
 

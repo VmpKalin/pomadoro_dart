@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../models/settings_model.dart';
 import '../services/sound_service.dart';
+import '../services/storage_service.dart';
 
 class SettingsViewModel extends ChangeNotifier {
   final SettingsModel settings;
@@ -26,27 +27,27 @@ class SettingsViewModel extends ChangeNotifier {
 
   void setFocusDuration(int minutes) {
     settings.focusMinutes = minutes;
-    notifyListeners();
+    _persist();
   }
 
   void setShortBreak(int minutes) {
     settings.shortBreakMinutes = minutes;
-    notifyListeners();
+    _persist();
   }
 
   void setLongBreak(int minutes) {
     settings.longBreakMinutes = minutes;
-    notifyListeners();
+    _persist();
   }
 
   void toggleHaptic() {
     settings.hapticEnabled = !settings.hapticEnabled;
-    notifyListeners();
+    _persist();
   }
 
   void toggleSound() {
     settings.soundEnabled = !settings.soundEnabled;
-    notifyListeners();
+    _persist();
     if (settings.soundEnabled) {
       SoundService.playCompletion();
     }
@@ -54,6 +55,13 @@ class SettingsViewModel extends ChangeNotifier {
 
   void toggleNotifications() {
     settings.notificationsEnabled = !settings.notificationsEnabled;
+    _persist();
+  }
+
+  // ─── Persistence ──────────────────────────────────────────────────────
+
+  void _persist() {
     notifyListeners();
+    StorageService.saveSettings(settings);
   }
 }

@@ -33,7 +33,11 @@ class StatisticsPage extends StatelessWidget {
             const SizedBox(height: 32),
             _buildStatCards(),
             const SizedBox(height: 48),
-            if (!viewModel.hasSessions) _buildEmptyState() else _buildSummary(),
+            if (!viewModel.hasSessions) _buildEmptyState() else ...[
+              _buildSummary(),
+              const SizedBox(height: 16),
+              _buildAllTime(),
+            ],
             const SizedBox(height: 24),
           ],
         ),
@@ -183,6 +187,53 @@ class StatisticsPage extends StatelessWidget {
               color: AppColors.textSecondary,
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAllTime() {
+    final hours = viewModel.totalFocusMinutes ~/ 60;
+    final mins = viewModel.totalFocusMinutes % 60;
+    final timeStr = hours > 0 ? '${hours}h ${mins}m' : '${mins} min';
+
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: AppColors.surfaceLight, width: 0.5),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: const Color(0xFF7B8CDE).withOpacity(0.12),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: const Icon(Icons.emoji_events_rounded,
+                    size: 18, color: Color(0xFF7B8CDE)),
+              ),
+              const SizedBox(width: 12),
+              const Text(
+                'All Time',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 20),
+          _summaryRow('Total sessions', '${viewModel.totalSessions}'),
+          const SizedBox(height: 12),
+          _summaryRow('Total focus time', timeStr),
         ],
       ),
     );

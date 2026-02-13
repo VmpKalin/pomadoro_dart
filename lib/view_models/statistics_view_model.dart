@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../models/session_stats.dart';
+import '../services/storage_service.dart';
 
 class StatisticsViewModel extends ChangeNotifier {
   final SessionStats stats;
@@ -10,7 +11,9 @@ class StatisticsViewModel extends ChangeNotifier {
   int get todayFocusMinutes => stats.todayFocusMinutes;
   int get weekSessions => stats.weekSessions;
   int get streakDays => stats.streakDays;
-  bool get hasSessions => stats.todaySessions > 0;
+  int get totalSessions => stats.totalSessions;
+  int get totalFocusMinutes => stats.totalFocusMinutes;
+  bool get hasSessions => stats.todaySessions > 0 || stats.totalSessions > 0;
 
   int get avgSessionMinutes => todaySessions > 0
       ? (todayFocusMinutes / todaySessions).round()
@@ -20,9 +23,13 @@ class StatisticsViewModel extends ChangeNotifier {
 
   void resetStats() {
     stats.reset();
+    StorageService.clearStats();
     notifyListeners();
   }
 
-  /// Call this to notify the view after a session is recorded externally.
-  void refresh() => notifyListeners();
+  /// Call this after a session is recorded externally to save & update UI.
+  void refresh() {
+    StorageService.saveStats(stats);
+    notifyListeners();
+  }
 }

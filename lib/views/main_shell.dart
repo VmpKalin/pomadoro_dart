@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/app_colors.dart';
-import '../models/settings_model.dart';
-import '../models/session_stats.dart';
+import '../services/storage_service.dart';
 import '../view_models/timer_view_model.dart';
 import '../view_models/statistics_view_model.dart';
 import '../view_models/settings_view_model.dart';
@@ -20,9 +19,9 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int _currentIndex = 0;
 
-  // Shared models
-  final _settings = SettingsModel();
-  final _stats = SessionStats();
+  // Shared models — loaded from device storage
+  final _settings = StorageService.loadSettings();
+  final _stats = StorageService.loadStats();
 
   // ViewModels
   late final TimerViewModel _timerVM;

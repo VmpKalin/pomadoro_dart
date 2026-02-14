@@ -1,8 +1,30 @@
-# test_project
+# Pomodoro Timer
 
-A Pomodoro timer Flutter application with lock-screen timer display on both Android (foreground service notification) and iOS (Live Activities).
+A beautiful and functional Pomodoro timer application built with Flutter, featuring lock-screen timer display on both Android and iOS platforms.
 
-## Getting Started
+## 📱 Screenshots
+
+<p align="center">
+  <img src="pictures/readme/IMG_5956.PNG" width="200" alt="Timer Screen" />
+  <img src="pictures/readme/IMG_5957.PNG" width="200" alt="Timer Running" />
+  <img src="pictures/readme/IMG_5958.PNG" width="200" alt="Timer Paused" />
+  <img src="pictures/readme/IMG_5960.PNG" width="200" alt="Lock Screen" />
+  <img src="pictures/readme/IMG_5961.PNG" width="200" alt="Settings" />
+</p>
+
+## ✨ Features
+
+- **🍅 Pomodoro Timer** - Classic 25-minute work sessions with 5-minute breaks
+- **🔄 Multiple Modes** - Work, Short Break, and Long Break modes
+- **🔒 Lock-Screen Display** - See your timer even when your phone is locked
+  - **Android**: Foreground service notification with live countdown
+  - **iOS**: Live Activities with Dynamic Island support (iOS 16.2+)
+- **⏸️ Full Control** - Start, pause, resume, and reset your timer
+- **📱 Cross-Platform** - Works seamlessly on both Android and iOS
+- **🎨 Beautiful UI** - Clean, modern interface with smooth animations
+- **🔋 Battery Efficient** - Optimized for minimal battery consumption
+
+## 🚀 Getting Started
 
 ```bash
 flutter pub get

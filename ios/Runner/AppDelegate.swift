@@ -12,5 +12,13 @@ import UIKit
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+
+    // Register the Live Activity bridge so Flutter can start / update / end
+    // the lock-screen countdown via the same MethodChannel used on Android.
+    if let registrar = engineBridge.pluginRegistry.registrar(
+        forPlugin: "TimerLiveActivityManager"
+    ) {
+      TimerLiveActivityManager.register(with: registrar)
+    }
   }
 }
